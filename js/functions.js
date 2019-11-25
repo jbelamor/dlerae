@@ -34,7 +34,8 @@ var definition_html ='\
 		</div>';
 
 function gen_definition(){
-    var base_url = 'http://dle.rae.es/?w=<div id="resultados"><article id="7lsKMtR"><header class="f">⁠⁠⁠';
+    var base_url = 'http://dle.rae.es/?w=';
+    var extra_url = '<div id="resultados"><article id="7lsKMtR"><header class="f">⁠⁠';
     var word_def = document.getElementById('word_def').value;
     var defs = $('.def-val');
     var total_defs = '';
@@ -44,21 +45,18 @@ function gen_definition(){
     var new_def;
     console.log(defs.length);
     for (var i=0; i < defs.length; i++){
-//	console.log(defs[i].childNodes[5].childNodes[1].childNodes[1].value);
 	definition = defs[i].value;
 	gramatical_category = $('.selected')[i].innerText;
 	final_gram_cat = '<abbr class="d" title="' + gramatical_category + '">' + gramatical_categories[gramatical_category] + '</abbr>';
 	var val = i+1;
-	new_def ='<p class="j" id="LjRHphN"><span class="n_acep">' + val + '.%20</span>' + final_gram_cat + '<mark>' + definition + '</mark></p>';
+	new_def ='<p class="j" id="LjRHphN"><span class="n_acep">' + val + '.</span>' + final_gram_cat + '<mark>' + definition + '</mark></p>';
 	total_defs += new_def;
     }
-    var final_url = base_url + word_def + '</header><p class="n2"></p>' + total_defs + "</article></div>";
+    var final_url = base_url + encodeURI(extra_url + word_def + '</header><p class="n2"></p>' + total_defs + "</article></div>");
     var modal_block = document.getElementById('modal_url');
     var content_modal_block = document.getElementById('final_url_value');
     content_modal_block.value = final_url;
-//    content_modal_block.innerText = final_url;
     $('#modal_url').modal('open');
-//    alert(final_url);
     
 }
 
